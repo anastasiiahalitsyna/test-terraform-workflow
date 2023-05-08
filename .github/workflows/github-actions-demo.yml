@@ -1,1 +1,15 @@
+name: Installing terraform and generating python code to be run
+
+on: push
+jobs:
+  version-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hashicorp/setup-terraform@v2
+      - name: Verify terraform
+        run: terraform -help
+  testing-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
