@@ -2,14 +2,19 @@ name: Installing terraform and generating python code to be run
 
 on: push
 jobs:
-  version-job:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: hashicorp/setup-terraform@v2
-      - name: Verify terraform
-        run: terraform -help
-  testing-job:
+  terraform-job:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+      - name: Verify terraform
+        run: terraform -help
+      - name: Initializing Terraform repository
+        run: terraform init
+      - name: Generating the Terraform plan into output.tf
+        run: terraform plan -out=outputs.tf
+      - name: Applying the Terraform plan
+        run: terraform apply "outputs.tf"
+
+
 
